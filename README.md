@@ -20,7 +20,7 @@
 **Backend:**  
 - Django (Python)  
 - Django REST Framework (endpoints API)  
-- PostgreSQL (Banco de dados)  
+- MySQL (Banco de dados)  
 
 **APIs Integradas:**  
 - DeepL (Tradução)  
