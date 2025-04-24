@@ -8,7 +8,7 @@
 
 ## ✨ Funcionalidades  
 - **Traduções em múltiplos idiomas** (API DeepL) para artigos, teses e documentações técnicas.  
-- **Análise de texto com IA** (API ChatGPT) para fornecer explicações contextuais e resumos.  
+- **Análise de texto com IA** (API Gemini) para fornecer explicações contextuais e resumos.  
 - **Contas de usuário** para salvar histórico de traduções e revisitar conversas.  
 - **Armazenamento seguro** de documentos acadêmicos/profissionais sensíveis.  
 
@@ -20,8 +20,8 @@
 **Backend:**  
 - Django (Python)  
 - Django REST Framework (endpoints API)  
-- PostgreSQL (Banco de dados)  
+- MySQL (Banco de dados)  
 
 **APIs Integradas:**  
 - DeepL (Tradução)  
-- OpenAI GPT-4 (Análise de texto)  
+- Gemini Google (Análise de texto aprofundada)  
