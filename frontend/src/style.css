@@ -47,6 +47,11 @@ body {
     color: #cbd5e1;
 }
 
+.cabecalho a {
+    text-decoration: none;
+    color: white;
+}
+
 
 .container {
     display: flex;
@@ -70,7 +75,9 @@ aside {
 .card-lateral h2 {
     font-size: 20px;
     margin-bottom: 15px;
+    margin-top: 15px;
     color: #1e3a8a;
+    text-align: center;
 }
 
 .card-lateral ul {
@@ -103,6 +110,20 @@ aside {
 
 .card-lateral button:hover {
     background: linear-gradient(to right, #1e40af, #2563eb);
+}
+
+.icone-do-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-top: 20px; 
+    gap: 10px; 
+}
+
+
+.icone-do-perfil i {
+    font-size: 40px;
+    justify-content: center;
 }
 
 
