@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradução</title>
+    <link rel="stylesheet" href="{% static 'meu_app/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <head>
+        <div class="cabecalho">
+            <h2>Tradutor Acadêmico</h2>
+            <ul>
+                <li>Reportar problema</li>
+                <li>Histórico</li>
+                <li><a href="{% url 'perfil' usuario.id %}">Perfil</a></li>
+            </ul>
+        </div>
+    </head>
+
+
+    <div class="container">
+        <aside>
+            <div class="card-lateral">
+                
+                
+                <div class="icone-do-perfil">
+                    <i class="fas fa-user-circle"></i>
+                    <p>Olá, fulano(a)!</p>
+                </div>
+
+
+                <h2>Histórico</h2>
+                <ul>
+                    <li>Artigo Biologia.pdf</li>
+                    <li>Relatório Anual.docx</li>
+                    <li>Pesquisa Física.pdf</li>
+                </ul>
+                <button>Upload+</button>
+            </div>
+        </aside>
+
+        <main>
+            <div class="card-principal">
+                <div class="botoes-traducao">
+                    <select name="opcoes-idioma">
+                        <option value="opcao1">Idioma 1</option>
+                        <option value="opcao1">Idioma 2</option>
+                        <option value="opcao1">Idioma 3</option>
+                        <option value="opcao1">Idioma 4</option>
+                    </select>
+                    <i class="fas fa-arrow-right"></i>
+                    <select name="opcoes-idioma">
+                        <option value="opcao1">Idioma 2</option>
+                        <option value="opcao1">Idioma 1</option>
+                        <option value="opcao1">Idioma 3</option>
+                        <option value="opcao1">Idioma 4</option>
+                    </select>
+                    <button>Análise de IA</button>
+                </div>
+                <div class="texto">
+                    <div class="lado-esquerdo">
+                        <h3>Documento Original</h3>
+                        <textarea>
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non, ratione? Totam, distinctio est. Veniam placeat fugiat autem asperiores velit id? Quod recusandae mollitia fuga commodi nam nesciunt, atque qui tempore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam pariatur nulla molestiae vero veniam iusto eaque quae voluptate impedit ullam vel neque optio labore et autem repellendus, magnam corporis. Aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officia, dolor nobis excepturi eaque similique! Beatae, officia temporibus omnis cum doloribus impedit. Quae ipsam deleniti, unde neque in cumque sint? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur unde voluptatibus et dolorem est dolores in autem perferendis repellendus labore eligendi, maiores consequatur quae. Est, blanditiis velit. Modi, dolorem repellat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
+                        </textarea>
+                    </div>
+                    <div class="lado-direito">
+                        <h3>Tradução</h3>
+                        <textarea>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, doloremque mollitia eos doloribus harum tempora consectetur facilis aut repellendus quod, omnis qui? Placeat voluptas reprehenderit adipisci dolores beatae, veniam inventore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid dolore iste quam sit, minus optio similique recusandae illo provident facere, voluptas repellat soluta debitis iure quidem consequatur, fugit incidunt impedit. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni enim ad ea quis est, fugiat tenetur a quisquam optio? A earum, obcaecati provident voluptatibus numquam cum accusamus rem dolorum quo? Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem vero aspernatur quos reprehenderit. Aliquid vel excepturi nisi dicta, voluptate repellat, alias vitae dolore rem qui earum maiores eveniet nihil illo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    
+    <script src="/frontend/src/script.js"></script>
+
+</body>
+</html>
