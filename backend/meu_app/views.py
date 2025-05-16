@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Usuario
-from django.http import HttpResponse
 from .forms import UsuarioForm
-from django.contrib.auth.decorators import login_required
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -20,9 +18,37 @@ def registrar_usuario(request):
 def sucesso(request):
     return render(request, 'meu_app/sucesso.html')
 
-@login_required
+def login_usuario(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        try:
+            usuario = Usuario.objects.get(email=email, senha=senha)
+            request.session['usuario_id'] = usuario.id
+            return redirect('index')
+
+        except Usuario.DoesNotExist:
+            return render(request, 'meu_app/login.html', {
+                'erro': 'Email ou senha inválidos.',
+                'email': email  
+            })
+
+    return render(request, 'meu_app/login.html')
+
 def index(request):
-    return render(request, 'meu_app/index.html', {'usuario': request.user})
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    print("ID da sessão:", request.session.get('usuario_id'))
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+    return render(request, 'meu_app/index.html', {'usuario': usuario})
+
+def logout_usuario(request):
+    request.session.flush()
+    return redirect('login')
+
 
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
