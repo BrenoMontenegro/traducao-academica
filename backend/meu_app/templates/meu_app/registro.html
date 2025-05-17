@@ -9,11 +9,11 @@
 <body class="bg-light">
 <div class="container mt-5">
     <div class="formulario-de-registro">
-        <h2 class="mb-4">Registrar Usuário</h2>
+        <h2 class="mb-4">Atualizar Informações</h2>
         <form method="post" class="card p-4 shadow-sm">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
             <a href="{% url 'lista' %}" class="btn btn-secondary">Voltar</a>
         </form>
     </div>

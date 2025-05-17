@@ -3,7 +3,8 @@ from . import views
 from django.shortcuts import render
 
 urlpatterns = [
-    path('', views.login_usuario, name='login'), #minha tela de login
+    path('', views.login_usuario, name='login'),#minha tela de login
+    path('cadastro/', views.cadastrar_usuario, name='cadastro'),
     path('index/', views.index, name='index'),
     path('registrar/', views.registrar_usuario, name='registrar'), #criar
     path('sucesso/', views.sucesso, name = 'sucesso'),
