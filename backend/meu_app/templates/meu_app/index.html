@@ -39,7 +39,12 @@
                     <li>Relatório Anual.docx</li>
                     <li>Pesquisa Física.pdf</li>
                 </ul>
-                <button>Upload+</button>
+            <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="arquivo_pdf" accept="application/pdf" required>
+                <button type="submit">Upload e Traduzir PDF</button>
+            </form>
+
             </div>
         </aside>
 
@@ -64,23 +69,27 @@
                 <div class="texto">
                     <div class="lado-esquerdo">
                         <h3>Documento Original</h3>
-                        <textarea>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non, ratione? Totam, distinctio est. Veniam placeat fugiat autem asperiores velit id? Quod recusandae mollitia fuga commodi nam nesciunt, atque qui tempore? Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam pariatur nulla molestiae vero veniam iusto eaque quae voluptate impedit ullam vel neque optio labore et autem repellendus, magnam corporis. Aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam officia, dolor nobis excepturi eaque similique! Beatae, officia temporibus omnis cum doloribus impedit. Quae ipsam deleniti, unde neque in cumque sint? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur unde voluptatibus et dolorem est dolores in autem perferendis repellendus labore eligendi, maiores consequatur quae. Est, blanditiis velit. Modi, dolorem repellat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
-                        </textarea>
+                        <textarea readonly>{{ texto_original|default:"" }}</textarea>
                     </div>
+
                     <div class="lado-direito">
                         <h3>Tradução</h3>
-                        <textarea>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, doloremque mollitia eos doloribus harum tempora consectetur facilis aut repellendus quod, omnis qui? Placeat voluptas reprehenderit adipisci dolores beatae, veniam inventore? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid dolore iste quam sit, minus optio similique recusandae illo provident facere, voluptas repellat soluta debitis iure quidem consequatur, fugit incidunt impedit. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni enim ad ea quis est, fugiat tenetur a quisquam optio? A earum, obcaecati provident voluptatibus numquam cum accusamus rem dolorum quo? Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem vero aspernatur quos reprehenderit. Aliquid vel excepturi nisi dicta, voluptate repellat, alias vitae dolore rem qui earum maiores eveniet nihil illo. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, cumque! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.
-                        </textarea>
+                        <textarea readonly>{{ traducao|default:"" }}</textarea>
                     </div>
                 </div>
             </div>
+
+            {% if traducao %}
+            <div class="traducao-resultado">
+                <h3>Tradução do PDF</h3>
+                <textarea rows="15">{{ traducao }}</textarea>
+
+                <a href="{{ pdf_url }}" class="btn btn-success mt-3" download>Baixar PDF Traduzido</a>
+            </div>
+            {% endif %}
+
         </main>
     </div>
-
-    
-    <script src="/frontend/src/script.js"></script>
 
 </body>
 </html>

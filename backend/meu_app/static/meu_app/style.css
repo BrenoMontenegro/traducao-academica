@@ -120,12 +120,10 @@ aside {
     gap: 10px; 
 }
 
-
 .icone-do-perfil i {
     font-size: 40px;
     justify-content: center;
 }
-
 
 main {
     flex: 1;
@@ -139,7 +137,6 @@ main {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     min-height: 600px;
 }
-
 
 .botoes-traducao {
     display: flex;
