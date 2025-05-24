@@ -15,8 +15,6 @@ urlpatterns = [
     path('deletar/<int:pk>/', views.deletar_usuario, name='deletar'), #deletar
     path('perfil/<int:pk>/', views.perfil_usuario, name='perfil'),   #visualizar/ler
     path('logout/', views.logout_usuario, name='logout'),
-    path('traduzir/', views.traduzir_texto, name="traduzir"),
-    path('upload/', views.upload_pdf, name='upload'),
 ]
 
 if settings.DEBUG:

@@ -7,87 +7,80 @@
     <title>Tradução</title>
     <link rel="stylesheet" href="{% static 'meu_app/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
 
-    <head>
-        <div class="cabecalho">
-            <h2>Tradutor Acadêmico</h2>
-            <ul>
-                <li>Reportar problema</li>
-                <li>Histórico</li>
-                <li><a href="{% url 'perfil' usuario.id %}">Perfil</a></li>
+    <header class="cabecalho p-3 bg-dark text-white">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h2>Projeto Acadêmico</h2>
+            <ul class="nav">
+                <li class="nav-item"><a href="#" class="nav-link text-white">Reportar problema</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white">Histórico</a></li>
+                <li class="nav-item"><a href="{% url 'perfil' usuario.id %}" class="nav-link text-white">Perfil</a></li>
             </ul>
         </div>
-    </head>
+    </header>
 
-
-    <div class="container">
-        <aside>
-            <div class="card-lateral">
-                
-                
-                <div class="icone-do-perfil">
-                    <i class="fas fa-user-circle"></i>
-                    <p>Olá, {{ usuario }}!</p>
-                </div>
-
-
-                <h2>Histórico</h2>
-                <ul>
-                    <li>Artigo Biologia.pdf</li>
-                    <li>Relatório Anual.docx</li>
-                    <li>Pesquisa Física.pdf</li>
-                </ul>
-            <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="arquivo_pdf" accept="application/pdf" required>
-                <button type="submit">Upload e Traduzir PDF</button>
-            </form>
-
+    <div class="container mt-5 d-flex">
+        <aside class="card-lateral me-4 p-3 bg-light border rounded" style="width: 250px;">
+            <div class="icone-do-perfil text-center mb-4">
+                <i class="fas fa-user-circle fa-3x"></i>
+                <p class="mt-2">Olá, {{ usuario }}!</p>
             </div>
+            <h5>Histórico</h5>
+            <ul class="lista-historico">
+                
+            </ul>
         </aside>
 
-        <main>
-            <div class="card-principal">
-                <div class="botoes-traducao">
-                    <select name="opcoes-idioma">
-                        <option value="opcao1">Idioma 1</option>
-                        <option value="opcao1">Idioma 2</option>
-                        <option value="opcao1">Idioma 3</option>
-                        <option value="opcao1">Idioma 4</option>
-                    </select>
-                    <i class="fas fa-arrow-right"></i>
-                    <select name="opcoes-idioma">
-                        <option value="opcao1">Idioma 2</option>
-                        <option value="opcao1">Idioma 1</option>
-                        <option value="opcao1">Idioma 3</option>
-                        <option value="opcao1">Idioma 4</option>
-                    </select>
-                    <button>Análise de IA</button>
-                </div>
-                <div class="texto">
-                    <div class="lado-esquerdo">
-                        <h3>Documento Original</h3>
-                        <textarea readonly>{{ texto_original|default:"" }}</textarea>
-                    </div>
+        
+        <main class="flex-fill">
 
-                    <div class="lado-direito">
-                        <h3>Tradução</h3>
-                        <textarea readonly>{{ traducao|default:"" }}</textarea>
-                    </div>
-                </div>
-            </div>
-
-            {% if traducao %}
-            <div class="traducao-resultado">
-                <h3>Tradução do PDF</h3>
-                <textarea rows="15">{{ traducao }}</textarea>
-
-                <a href="{{ pdf_url }}" class="btn btn-success mt-3" download>Baixar PDF Traduzido</a>
-            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
             {% endif %}
 
+            
+            <div class="card p-4 mb-4 shadow-sm">
+                <h4 class="mb-3">Gerar Resumo Acadêmico</h4>
+                <form method="post" class="formulario-resumo">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título do Texto:</label>
+                        <input type="text" name="titulo" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="conteudo" class="form-label">Texto para Resumo:</label>
+                        <textarea name="conteudo" class="form-control" rows="8" placeholder="Cole aqui o conteúdo..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gerar Resumo</button>
+                </form>
+            </div>
+
+            {% if resumos %}
+            <div class="card p-4 shadow-sm">
+                <h4 class="mb-3">Seus Resumos Gerados</h4>
+                <ul class="list-group">
+                    {% for resumo in resumos %}
+
+                    <form method="get" class="mb-3">
+                        <button type="submit" class="btn btn-secondary">🔄 Atualizar</button>
+                    </form>
+
+                    <li class="list-group-item">
+                        <h6>{{ resumo.texto_original.titulo }}</h6>
+                        <p><em>{{ resumo.resumo }}</em></p>
+                        <small class="text-muted">Gerado em {{ resumo.data_criacao|date:"d/m/Y H:i" }}</small>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+                <p>Você ainda não gerou nenhum resumo.</p>
+            {% endif %}
         </main>
     </div>
 
