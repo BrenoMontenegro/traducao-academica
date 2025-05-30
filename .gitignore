@@ -1,0 +1,7 @@
+*.pyc
+*.pyo
+pycache/
+*.egg
+venv/
+db.sqlite3
+staticfiles/
