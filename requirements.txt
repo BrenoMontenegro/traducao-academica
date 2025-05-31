@@ -2,6 +2,7 @@
 #source venv/bin/activate
 #pip install -r requirements.txt
 #.\venv\Scripts\Activate.ps1
+# python manage.py runserver
 
 Django==5.2
 celery==5.3.6
