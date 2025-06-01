@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignorar ambientes virtuais
 venv/
 backend/venv/
@@ -20,3 +21,12 @@ __pycache__/
 .DS_Store
 
 
+=======
+*.pyc
+*.pyo
+pycache/
+*.egg
+venv/
+db.sqlite3
+staticfiles/
+>>>>>>> 0893144048c3bf697f972d3741f9ffea3843e324
