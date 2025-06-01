@@ -11,3 +11,8 @@ sumy==0.11.0
 beautifulsoup4==4.12.3
 nltk==3.8.1
 lxml==5.1.0
+
+#docker run -d -p 6379:6379 --name redis redis
+#docker redis redis
+#celery -A backend worker --loglevel=info
+#python manage.py runserver
