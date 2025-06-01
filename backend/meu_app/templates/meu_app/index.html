@@ -71,9 +71,17 @@
                     </form>
 
                     <li class="list-group-item">
-                        <h6>{{ resumo.texto_original.titulo }}</h6>
-                        <p><em>{{ resumo.resumo }}</em></p>
-                        <small class="text-muted">Gerado em {{ resumo.data_criacao|date:"d/m/Y H:i" }}</small>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6>{{ resumo.texto_original.titulo }}</h6>
+                                <p><em>{{ resumo.resumo }}</em></p>
+                                <small class="text-muted">Gerado em {{ resumo.data_criacao|date:"d/m/Y H:i" }}</small>
+                            </div>
+                            <form method="post" action="{% url 'deletar_resumo' resumo.id %}" onsubmit="return confirm('Deseja mesmo deletar este resumo?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger ms-3">🗑 Deletar</button>
+                            </form>
+                        </div>
                     </li>
                     {% endfor %}
                 </ul>

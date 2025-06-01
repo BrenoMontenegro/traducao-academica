@@ -137,3 +137,13 @@ def enviar_texto(request):
 def listar_resumos(request):
     resumos = ResumoGerado.objects.filter(texto_original__usuario=request.user)
     return render(request, 'meu_app/lista_resumos.html', {'resumos': resumos})
+    
+def deletar_resumo(request, resumo_id):
+    resumo = get_object_or_404(ResumoGerado, id=resumo_id)
+
+    if request.method == "POST":
+        resumo.delete()
+        messages.success(request, "Resumo deletado com sucesso.")
+        return redirect('index')
+
+    return redirect('index')
