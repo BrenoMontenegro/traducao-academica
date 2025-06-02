@@ -16,4 +16,9 @@ lxml==5.1.0
 #docker redis redis
 #celery -A backend worker --loglevel=info
 #.\venv\Scripts\Activate.ps1
-#python manage.py runserver
+#python manage.py 
+
+#instalando o Ollama:
+#curl -fsSL https://ollama.com/install.sh | sh
+#ollama pull llama3
+#ollama run llama3
