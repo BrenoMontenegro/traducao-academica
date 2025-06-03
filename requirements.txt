@@ -22,3 +22,5 @@ lxml==5.1.0
 #curl -fsSL https://ollama.com/install.sh | sh
 #ollama pull llama3
 #ollama run llama3
+
+#https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.xda-developers.com%2F4-features-notebooklm-should-have%2F&psig=AOvVaw3FkBhkBQjpt77K2Sd2RKH3&ust=1749039971427000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNCzgtWf1Y0DFQAAAAAdAAAAABAX
