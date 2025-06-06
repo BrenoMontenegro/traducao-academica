@@ -22,7 +22,6 @@
                 <nav class="nav">
                     <a href="#" class="nav-link text-white px-3">Reportar problema</a>
                     <a href="#" class="nav-link text-white px-3">Histórico</a>
-                    <a href="{% url 'meus_resumos' %}" class="nav-link text-white px-3">Resumos</a>
                 </nav>
         
                 
@@ -33,39 +32,16 @@
             </div>
         </header>
 
-    
-
-   
-        
         <main class="flex-fill">
-
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-info text-center mx-auto" style="width:fit-content;">{{ message }}</div>
                 {% endfor %}
             {% endif %}
 
-            
      <div class="container my-6" style="display: flex; justify-content: center;">
       <div class="card p-5 mb-4 shadow-sm" style="width:100%; max-width: 900px;">
-        <h4 class="mb-3">Gerar Resumo Acadêmico</h4>
-        <form method="post" class="formulario-resumo">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label for="titulo" class="form-label">Título do Texto:</label>
-            <input type="text" name="titulo" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label for="conteudo" class="form-label">Texto para Resumo:</label>
-            <textarea name="conteudo" class="form-control" rows="8" placeholder="Cole aqui o conteúdo..." required></textarea>
-          
-        <div style="display: flex; justify-content: center;">
-          <button type="submit" class="btn btn-primary">Gerar Resumo</button>
-        </form>
-      </div>
-    </div>
-
-
+       
             {% if resumos %}
             <div class="card p-4 shadow-sm">
                 <h4 class="mb-3">Seus Resumos Gerados</h4>

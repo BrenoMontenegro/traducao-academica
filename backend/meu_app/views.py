@@ -147,3 +147,18 @@ def deletar_resumo(request, resumo_id):
         return redirect('index')
 
     return redirect('index')
+    
+def meus_resumos(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    resumos = ResumoGerado.objects.filter(texto_original__usuario=usuario).order_by('-data_criacao')
+
+    return render(request, 'meu_app/lista_resumos.html', {
+        'resumos': resumos,
+        'usuario': usuario  # <-- ESSENCIAL!
+    })
+
+
