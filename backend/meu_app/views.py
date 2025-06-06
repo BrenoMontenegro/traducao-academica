@@ -78,7 +78,7 @@ def index(request):
         )
 
         gerar_resumo.delay(texto.id)
-        messages.success(request, "Resumo sendo gerado! Isso pode levar alguns segundos.")
+        messages.success(request, "Resumo sendo gerado! Isso pode levar alguns minutos.")
         return redirect("index")
 
     usuario = Usuario.objects.get(id=request.session['usuario_id'])
