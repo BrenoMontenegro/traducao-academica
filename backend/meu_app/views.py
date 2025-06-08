@@ -83,7 +83,7 @@ def index(request):
 
     usuario = Usuario.objects.get(id=request.session['usuario_id'])
 
-    resumos = ResumoGerado.objects.filter(texto_original__usuario=usuario).order_by("-data_criacao")
+    resumos = ResumoGerado.objects.filter(texto_original__usuario=usuario).order_by("-data_criacao")[:5]
 
     return render(request, "meu_app/index.html", {
         "usuario": usuario,
@@ -147,3 +147,16 @@ def deletar_resumo(request, resumo_id):
         return redirect('index')
 
     return redirect('index')
+    
+def historico(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+        
+    usuario = get_object_or_404(Usuario, pk=usuario_id)  
+
+    resumos = ResumoGerado.objects.filter(texto_original__usuario_id=usuario_id).order_by("-data_criacao")
+    return render(request, 'meu_app/historico.html', {
+        'resumos': resumos,
+        'usuario': usuario
+    })
