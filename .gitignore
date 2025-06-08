@@ -30,3 +30,6 @@ venv/
 db.sqlite3
 staticfiles/
 >>>>>>> 0893144048c3bf697f972d3741f9ffea3843e324
+*.pyc
+__pycache__/
+db.sqlite3

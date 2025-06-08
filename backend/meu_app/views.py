@@ -78,7 +78,7 @@ def index(request):
         )
 
         gerar_resumo.delay(texto.id)
-        messages.success(request, "Resumo sendo gerado! Isso pode levar alguns segundos.")
+        messages.success(request, "Resumo sendo gerado! Isso pode levar alguns minutos.")
         return redirect("index")
 
     usuario = Usuario.objects.get(id=request.session['usuario_id'])
@@ -159,4 +159,17 @@ def historico(request):
     return render(request, 'meu_app/historico.html', {
         'resumos': resumos,
         'usuario': usuario
+    })
+    
+def meus_resumos(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    resumos = ResumoGerado.objects.filter(texto_original__usuario=usuario).order_by('-data_criacao')
+
+    return render(request, 'meu_app/lista_resumos.html', {
+        'resumos': resumos,
+        'usuario': usuario  
     })

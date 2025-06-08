@@ -16,6 +16,7 @@ urlpatterns = [
     path('perfil/<int:pk>/', views.perfil_usuario, name='perfil'),   
     path('logout/', views.logout_usuario, name='logout'),
     path('deletar-resumo/<int:resumo_id>/', views.deletar_resumo, name='deletar_resumo'),
+    path('meus-resumos/', views.meus_resumos, name='meus_resumos'),
     path('historico/', views.historico, name='historico'),
 ]
 
