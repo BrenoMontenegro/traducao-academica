@@ -5,6 +5,7 @@ from .forms import UsuarioForm
 from .tasks import gerar_resumo
 from .models import TextoOriginal, ResumoGerado, Usuario
 from django.contrib import messages
+from .tasks import enviar_email_welcome
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -51,7 +52,10 @@ def cadastrar_usuario(request):
             return render(request, 'meu_app/cadastro.html', {'erro': 'Esse e-mail já está em uso.'})
 
         usuario = Usuario.objects.create(nome=nome, email=email, senha=senha)
-        request.session['usuario_id'] = usuario.id  
+        request.session['usuario_id'] = usuario.id
+        
+        enviar_email_welcome.delay(email, nome, senha)
+        
         return redirect('index')  
 
     return render(request, 'meu_app/cadastro.html')
