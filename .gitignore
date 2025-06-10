@@ -1,34 +1,26 @@
-# Ignorar ambientes virtuais
+# Ambientes virtuais
 venv/
 backend/venv/
 
-# Ignorar arquivos Python compilados
+# Arquivos Python compilados
 __pycache__/
 *.py[cod]
 *.so
+*.pyo
+*.egg
 
-# Ignorar arquivos de configuração local
+# Arquivos de configuração local
 .env
 *.sqlite3
 *.log
 
-# Ignorar IDEs
+# IDEs
 .vscode/
 .idea/
 
-# Ignorar arquivos do sistema
+# Arquivos do sistema
 .DS_Store
 
-
-*.pyc
-*.pyo
-pycache/
-*.egg
-venv/
+# Arquivos do Django
 db.sqlite3
 staticfiles/
-*.pyc
-__pycache__/
-db.sqlite3
-__pycache__/
-*.pyc

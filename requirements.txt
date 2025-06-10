@@ -1,6 +1,7 @@
 #cd traducao-academica
-#source venv/bin/activate
 #python3 -m venv venv
+#source venv/bin/activate
+
 #pip install -r requirements.txt
 
 Django==5.2
@@ -29,7 +30,7 @@ lxml==5.1.0
 #ollama pull llama3
 #ollama run llama3
 
-iniciando o servidor python:
+#iniciando o servidor python:
 #python manage.py runserver 0.0.0.0:8080
 
 #https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.xda-developers.com%2F4-features-notebooklm-should-have%2F&psig=AOvVaw3FkBhkBQjpt77K2Sd2RKH3&ust=1749039971427000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNCzgtWf1Y0DFQAAAAAdAAAAABAX
