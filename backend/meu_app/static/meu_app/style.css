@@ -6,17 +6,64 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --card-bg: #f8f9fa;
+    --link-color: #0d6efd;
+    --header-bg: #0f172a;
+    --header-text: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.08);
+    --input-bg: #f9fafb;
+    --input-border: #cbd5e1;
+    --highlight-color: #1e3a8a;
+    --hover-link: #cbd5e1;
+    --box-shadow-light: rgba(0, 0, 0, 0.05);
+    --card-text-secondary: #4b5563;
+    --card-text-primary: #111827;
+}
+
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #f0f0f0;
+    --card-bg: #1e1e1e;
+    --link-color: #0dcaf0;
+    --header-bg: #1f2937;
+    --header-text: #ffffff;
+    --card-shadow: rgba(255, 255, 255, 0.05);
+    --input-bg: #2a2a2a;
+    --input-border: #3b3b3b;
+    --highlight-color: #93c5fd;
+    --hover-link: #94a3b8;
+    --box-shadow-light: rgba(255, 255, 255, 0.05);
+    --card-text-secondary: #d1d5db;
+    --card-text-primary: #e5e7eb;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, #f3f4f6, #e5e7eb);
-    color: #111827;
     min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.nav-link.active-link {
+  border-bottom: 2px solid var(--link-color);
 }
 
 .cabecalho {
-    background-color: #0f172a !important;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--header-bg) !important;
+    color: var(--header--text);
+    box-shadow: 0 4px 10px rgba(--card-shadow);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
@@ -41,12 +88,12 @@ body {
 }
 
 .cabecalho ul li:hover {
-    color: #cbd5e1;
+    color: var(--hover-link);
 }
 
 .cabecalho a {
     text-decoration: none;
-    color: white;
+    color: var(--header-text);
     margin-right: 10px;
 }
 
@@ -65,13 +112,13 @@ body {
 }
 
 .nav-link {
-    color: white;
+    color: var(--header-text);
     font-weight: 500;
     transition: color 0.3s;
 }
 
 .nav-link:hover {
-    color: #cbd5e1;
+    color: var(--hover-link);
     text-decoration: underline;
 }
 
@@ -93,10 +140,11 @@ body {
 }
 
 .card-principal {
-    background-color: #ffffff;
+    background-color: var(--card-bg);
+    color: var(--text-color)
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px var(--card-shadow);
     min-height: 600px;
 }
 
@@ -108,16 +156,17 @@ body {
 
 .formulario-resumo label {
     font-weight: bold;
-    color: #1e3a8a;
+    color: var(--highlight-color);
 }
 
 .formulario-resumo input[type="text"],
 .formulario-resumo textarea {
     padding: 12px;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 14px;
-    background-color: #f9fafb;
+    background-color: var(--input-bg);
+    color: var(--text-color);
     resize: vertical;
     
 }
@@ -147,9 +196,12 @@ body {
 }
 
 .list-group-item {
+    background-color: var(--card-bg);
+    color: var(--text-color);
     max-height: 300px;
     overflow-y: auto;
-}
+    border-radius: 8px;
+    padding: 10px;
 
 
 .lista-resumos {
@@ -158,7 +210,7 @@ body {
 
 .lista-resumos h3 {
     margin-bottom: 20px;
-    color: #1e3a8a;
+    color: var(--highlight-color);
 }
 
 .lista-resumos ul {
@@ -170,21 +222,22 @@ body {
 }
 
 .lista-resumos li {
-    background-color: #f3f4f6;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px var(--box-shadow-light);
 }
 
 .lista-resumos li strong {
     font-size: 16px;
-    color: #111827;
+    color: var(--card-text-primary);
 }
 
 .lista-resumos li em {
     display: block;
     margin-top: 8px;
-    color: #4b5563;
+    color: var(--card-text-secundary);
 }
 
 @media (max-width: 768px) {

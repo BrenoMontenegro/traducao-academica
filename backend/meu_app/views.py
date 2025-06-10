@@ -1,11 +1,9 @@
 import os
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Usuario
 from .forms import UsuarioForm
 from .tasks import gerar_resumo
 from .models import TextoOriginal, ResumoGerado, Usuario
-from .tasks import gerar_resumo
 from django.contrib import messages
 
 def registrar_usuario(request):
