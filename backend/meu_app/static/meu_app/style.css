@@ -62,8 +62,8 @@ a {
 
 .cabecalho {
     background-color: var(--header-bg) !important;
-    color: var(--header--text);
-    box-shadow: 0 4px 10px rgba(--card-shadow);
+    color: var(--header-text);
+    box-shadow: 0 4px 10px var(--card-shadow);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
@@ -141,7 +141,7 @@ a {
 
 .card-principal {
     background-color: var(--card-bg);
-    color: var(--text-color)
+    color: var(--text-color);
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 16px var(--card-shadow);

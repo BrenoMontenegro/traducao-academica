@@ -32,7 +32,7 @@ def login_usuario(request):
         try:
             usuario = Usuario.objects.get(email=email, senha=senha)
             request.session['usuario_id'] = usuario.id
-            return redirect('index')
+            return redirect('home')
 
         except Usuario.DoesNotExist:
             return render(request, 'meu_app/login.html', {
@@ -56,7 +56,7 @@ def cadastrar_usuario(request):
         
         enviar_email_welcome.delay(email, nome, senha)
         
-        return redirect('index')  
+        return redirect('home')  
 
     return render(request, 'meu_app/cadastro.html')
 
@@ -127,6 +127,17 @@ def deletar_usuario(request, pk):
 def perfil_usuario(request, pk):
     usuario = get_object_or_404(Usuario, pk=pk)
     return render(request, 'meu_app/perfil.html', {'usuario': usuario})
+
+
+def pagina_principal(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+    return render(request, 'meu_app/home.html', {'usuario': usuario})
+
+
 
 def enviar_texto(request):
     if request.method == 'POST':

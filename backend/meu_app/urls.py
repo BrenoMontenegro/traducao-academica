@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.login_usuario, name='login'),        
     path('cadastro/', views.cadastrar_usuario, name='cadastro'),
+    path('home/', views.pagina_principal, name='home'),
     path('index/', views.index, name='index'),
     path('registrar/', views.registrar_usuario, name='registrar'), 
     path('sucesso/', views.sucesso, name = 'sucesso'),
@@ -22,3 +23,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

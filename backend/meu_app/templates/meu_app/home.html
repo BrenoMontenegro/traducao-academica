@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindoraHub</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'meu_app/estilo-home.css' %}">
+</head>
+<body>
+  <div class="bg-animation"></div>
+
+  <header class="cabecalho" id="header">
+    <div class="header-container">
+      <div class="logo-section">
+        <div class="logo-container">
+          <div class="logo-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div class="logo-text-container">
+            <a href="{% url 'home' %}" class="logo-text">MINDORAHUB</a>
+            <div class="logo-subtitle">Plataforma Inteligente</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-container">
+        <nav>
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> Resumos</a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-history"></i> Histórico</a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="user-section">
+        <div class="action-buttons">
+          <div class="action-btn" title="Suporte"><i class="fas fa-question-circle"></i></div>
+        </div>
+        <a href="{% url 'perfil' usuario.id %}" class="user-profile">
+          <div class="user-avatar"><i class="fas fa-user"></i></div>
+          <div class="user-info">
+            <div class="user-name">Olá, {{ usuario }}!</div>
+            <div class="user-role">Premium Student</div>
+          </div>
+        </a>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="content-card">
+      <h1 class="content-title">Bem-vindo ao MindoraHub</h1>
+      <p class="content-subtitle">
+        Transforme seus estudos com nossa plataforma inteligente de resumos acadêmicos.
+        Utilize IA avançada para criar resumos precisos, acompanhe seu progresso e
+        maximize seu potencial de aprendizado.
+      </p>
+    </div>
+
+    <div class="content-card">
+      <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Recursos Principais</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        
+        <a href="{% url 'index' %}" style="text-decoration: none;">
+          <div style="padding: 1.5rem; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--glass-bg);">
+            <i class="fas fa-robot" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 1rem;"></i>
+            <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">IA Avançada</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Resumos inteligentes com processamento de linguagem natural</p>
+          </div>
+        </a>
+      
+        <div style="padding: 1.5rem; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--glass-bg);">
+          <i class="fas fa-chart-bar" style="font-size: 2rem; color: var(--accent-purple); margin-bottom: 1rem;"></i>
+          <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Analytics</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Acompanhe seu progresso e performance de estudos</p>
+        </div>
+        
+        <div style="padding: 1.5rem; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--glass-bg);">
+          <i class="fas fa-tasks" style="font-size: 2rem; color: var(--accent-pink); margin-bottom: 1rem;"></i>
+          <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Atividades</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">Acesse suas atividades pendentes e veja as concluídas</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+    <script src="{% static 'meu_app/home.js' %}"></script>
+
+  
+</body>
+</html>

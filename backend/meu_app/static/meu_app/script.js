@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+            //Aqui é a parte da animação da caixa de deletar resumo
             const modal = document.getElementById('modalConfirmacao');
             const form = document.getElementById('form-deletar-modal');
             const tituloSpan = document.getElementById('titulo-resumo');
@@ -12,6 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 tituloSpan.textContent = `"${tituloResumo}"`;
             });
             
+            
+            //Essa parte fica reservada para o código do darkmode
             const toggleButton = document.getElementById('toggle-darkmode');
             const body = document.body;
             

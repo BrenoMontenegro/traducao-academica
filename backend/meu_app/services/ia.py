@@ -4,7 +4,7 @@ import json
 session = requests.Session()
 
 def gerar_insight_local(texto):
-    prompt = f"Analise criticamente o texto a seguir. Emita um insight original, claro e relevante:\n\n{texto}"
+    prompt = f"Leia o texto e gere um insight breve, claro e relevante em português do Brasil:\n\n{texto}"
 
     try:
         response = session.post(
@@ -14,7 +14,7 @@ def gerar_insight_local(texto):
                 "prompt": prompt,
                 "stream": False,
                 "options": {
-                    "num_predict": 500,
+                    "num_predict": 400,
                     "temperature": 0.7
                 }
             }
