@@ -12,6 +12,7 @@ from .models import SessaoEstudo
 from django.db.models import Sum, F, ExpressionWrapper, DurationField
 import json
 from django.utils.timezone import now
+from django.http import JsonResponse
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -236,3 +237,30 @@ def dashboard(request):
     tempo_serializado = json.dumps(minutos)
 
     return render(request, 'meu_app/dashboard.html', {'tempo_total_json': tempo_serializado})
+    
+def tempo_estudo_ao_vivo(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return JsonResponse({'erro': 'Usuário não autenticado'}, status=403)
+
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+
+    sessoes = SessaoEstudo.objects.filter(usuario=usuario, fim__isnull=False).annotate(
+        duracao=ExpressionWrapper(F('fim') - F('inicio'), output_field=DurationField())
+    )
+    duracao_finalizadas = sessoes.aggregate(total=Sum('duracao'))['total']
+
+    sessao_atual = SessaoEstudo.objects.filter(usuario=usuario, fim__isnull=True).order_by('-inicio').first()
+    duracao_atual = None
+    if sessao_atual:
+        duracao_atual = now() - sessao_atual.inicio
+
+    total_segundos = 0
+    if duracao_finalizadas:
+        total_segundos += duracao_finalizadas.total_seconds()
+    if duracao_atual:
+        total_segundos += duracao_atual.total_seconds()
+
+    minutos = round(total_segundos / 60, 2)
+
+    return JsonResponse({'tempo_total': minutos})

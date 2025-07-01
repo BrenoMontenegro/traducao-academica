@@ -20,6 +20,7 @@ urlpatterns = [
     path('meus-resumos/', views.meus_resumos, name='meus_resumos'),
     path('historico/', views.historico, name='historico'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('tempo-estudo-ao-vivo/', views.tempo_estudo_ao_vivo, name='tempo_estudo_ao_vivo'),
 ]
 
 if settings.DEBUG:
