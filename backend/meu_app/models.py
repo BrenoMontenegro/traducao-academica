@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.timezone import now
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100)
@@ -19,4 +21,14 @@ class ResumoGerado(models.Model):
     resumo = models.TextField()
     data_criacao = models.DateTimeField(auto_now_add=True)
     foi_exportado_pdf = models.BooleanField(default=False)
+
+class SessaoEstudo(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    inicio = models.DateTimeField(default=now)
+    fim = models.DateTimeField(null=True, blank=True)
+
+    def duracao_em_minutos(self):
+        if self.fim:
+            return (self.fim - self.inicio).total_seconds() / 60
+        return 0
 

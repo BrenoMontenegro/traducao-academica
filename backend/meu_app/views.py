@@ -6,6 +6,12 @@ from .tasks import gerar_resumo
 from .models import TextoOriginal, ResumoGerado, Usuario
 from django.contrib import messages
 from .tasks import enviar_email_welcome
+from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.dispatch import receiver
+from .models import SessaoEstudo
+from django.db.models import Sum, F, ExpressionWrapper, DurationField
+import json
+from django.utils.timezone import now
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -32,6 +38,7 @@ def login_usuario(request):
         try:
             usuario = Usuario.objects.get(email=email, senha=senha)
             request.session['usuario_id'] = usuario.id
+            SessaoEstudo.objects.create(usuario=usuario, inicio=now())
             return redirect('home')
 
         except Usuario.DoesNotExist:
@@ -91,11 +98,22 @@ def index(request):
         "usuario": usuario,
         "resumos": resumos
     })
-
+    
 def logout_usuario(request):
+    usuario_id = request.session.get('usuario_id')
+    
+    if usuario_id:
+        from django.utils.timezone import now
+        try:
+            ultima_sessao = SessaoEstudo.objects.filter(usuario_id=usuario_id, fim__isnull=True).last()
+            if ultima_sessao:
+                ultima_sessao.fim = now()
+                ultima_sessao.save()
+        except SessaoEstudo.DoesNotExist:
+            pass
+
     request.session.flush()
     return redirect('login')
-
 
 def listar_usuarios(request):
     return redirect('index')
@@ -186,3 +204,35 @@ def meus_resumos(request):
         'resumos': resumos,
         'usuario': usuario  
     })
+    
+@receiver(user_logged_in)
+def iniciar_sessao_estudo(sender, request, user, **kwargs):
+    SessaoEstudo.objects.create(usuario=user)
+
+@receiver(user_logged_out)
+def encerrar_sessao_estudo(sender, request, user, **kwargs):
+    sessao = SessaoEstudo.objects.filter(usuario=user, fim__isnull=True).last()
+    if sessao:
+        sessao.fim = now()
+        sessao.save()
+        
+        
+def dashboard(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+
+    sessoes = SessaoEstudo.objects.filter(usuario=usuario, fim__isnull=False)
+
+    sessoes = sessoes.annotate(
+        duracao=ExpressionWrapper(F('fim') - F('inicio'), output_field=DurationField())
+    )
+
+    total_duracao = sessoes.aggregate(total=Sum('duracao'))['total']
+    minutos = round(total_duracao.total_seconds() / 60, 2) if total_duracao else 0
+    
+    tempo_serializado = json.dumps(minutos)
+
+    return render(request, 'meu_app/dashboard.html', {'tempo_total_json': tempo_serializado})
