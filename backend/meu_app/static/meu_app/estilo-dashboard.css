@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    --dark-gradient: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.85);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.3);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 3rem;
+}
+
+.navbar {
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.95));
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+}
+
+.container h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.3);
+}
+
+.card-title {
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cartao-desempenho {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(76, 29, 149, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cartao-desempenho:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(79, 70, 229, 0.5);
+}
+
+.cartao-desempenho .titulo-cartao {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+}
+
+.cartao-desempenho .numero-destaque {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+.display-6 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+canvas {
+    background-color: transparent;
+}
+
+.cartao-meta {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.barra-container {
+    width: 100%;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-preenchida {
+    height: 100%;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    transition: width 0.5s ease;
+}
+
+.meta-progresso {
+    height: 12px;
+    background-color: #00FFAA;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+}
+
+.botao-flutuante {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    color: white;
+    font-size: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-glow);
+    cursor: pointer;
+    z-index: 10001;
+    transition: transform 0.3s ease;
+}
+
+.botao-flutuante:hover {
+    transform: scale(1.1);
+}
+
+#metaForm {
+    display: none;
+    position: fixed;
+    bottom: 110px;
+    right: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem;
+    border-radius: 20px;
+    z-index: 999;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+#metaForm.show {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.formulario-meta {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 280px;
+    padding: 20px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-glow);
+    z-index: 10000;
+    color: var(--text-primary);
+    display: none;
+}
+
+.formulario-meta h5 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.formulario-meta input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.formulario-meta input::placeholder {
+    color: var(--text-muted);
+}
+
+.formulario-meta button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.formulario-meta button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4);
+}
+
+.formulario-meta button:active {
+    background: linear-gradient(135deg, #7c3aed, #ec4899); 
+    transform: scale(0.97);
+    box-shadow: 0 0 10px rgba(236, 72, 153, 0.6), 0 0 30px rgba(124, 58, 237, 0.5);
+}
+
+.btn-atualizar {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    color: white;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-right: 8px;
+}
+
+.btn-atualizar:hover {
+    background: linear-gradient(135deg, #5b5fc7, #a855f7);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}

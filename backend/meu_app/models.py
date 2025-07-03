@@ -31,4 +31,14 @@ class SessaoEstudo(models.Model):
         if self.fim:
             return (self.fim - self.inicio).total_seconds() / 60
         return 0
+        
+class MetaEstudo(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=100)
+    tempo_meta = models.IntegerField()
+    tempo_realizado = models.IntegerField(default=0)
 
+    def progresso(self):
+        if self.tempo_meta > 0:
+            return int((self.tempo_realizado / self.tempo_meta) * 100)
+        return 0

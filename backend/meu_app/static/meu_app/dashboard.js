@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    //Aqui, deixei a lógica de geração do gráfico
     if (!document.getElementById('tempo-total') || !document.getElementById('graficoEstudo')) {
         console.warn('Elementos não encontrados. O script de dashboard não será executado.');
         return;
@@ -39,7 +40,15 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 const minutos = data.tempo_total;
                 tempoSpan.textContent = minutos;
-
+                
+            document.querySelectorAll('.meta-progresso').forEach(barra => {
+                const tempoMeta = parseFloat(barra.dataset.meta);
+                if (tempoMeta > 0) {
+                    const progresso = Math.min(100, Math.round((minutos / tempoMeta) * 100));
+                    barra.style.width = progresso + '%';
+                }
+            });
+            
                 const hora = new Date().toLocaleTimeString();
                 dadosHistoricos.push(minutos);
                 labelsHistoricos.push(hora);
@@ -50,9 +59,44 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 grafico.update();
+                
+            const barras = document.querySelectorAll('.meta-progresso');
+            barras.forEach(barra => {
+                const tempoMeta = parseFloat(barra.dataset.meta);
+                const progresso = Math.min((minutos / tempoMeta) * 100, 100);
+                barra.style.width = progresso + '%';
             });
+            
+            const spansFeito = document.querySelectorAll('.feito-meta');
+            spansFeito.forEach(span => {
+            span.textContent = minutos;
+            });
+
+        });
     }
 
     atualizarTempo();
     setInterval(atualizarTempo, 5000);
+    
+    //Aqui, eu deixei a lógica do botão flutuante que faz aparecer o widget
+    
+    const botao = document.getElementById('toggleForm');
+    const widget = document.getElementById('metaForm');
+
+    if(botao && widget) {
+        botao.addEventListener('click', function (e) {
+            e.stopPropagation();
+            widget.style.display = (widget.style.display === 'block') ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!widget.contains(e.target) && e.target !== botao) {
+                widget.style.display = 'none';
+            }
+        });
+    }
 });
+
+function confirmar() {
+    return confirm("Tem certeza que deseja zerar todo o progresso?");
+}

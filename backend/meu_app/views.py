@@ -8,7 +8,7 @@ from django.contrib import messages
 from .tasks import enviar_email_welcome
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
-from .models import SessaoEstudo
+from .models import SessaoEstudo, MetaEstudo
 from django.db.models import Sum, F, ExpressionWrapper, DurationField
 import json
 from django.utils.timezone import now
@@ -217,7 +217,6 @@ def encerrar_sessao_estudo(sender, request, user, **kwargs):
         sessao.fim = now()
         sessao.save()
         
-        
 def dashboard(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
@@ -226,18 +225,64 @@ def dashboard(request):
     usuario = get_object_or_404(Usuario, pk=usuario_id)
 
     sessoes = SessaoEstudo.objects.filter(usuario=usuario, fim__isnull=False)
-
     sessoes = sessoes.annotate(
         duracao=ExpressionWrapper(F('fim') - F('inicio'), output_field=DurationField())
     )
-
     total_duracao = sessoes.aggregate(total=Sum('duracao'))['total']
     minutos = round(total_duracao.total_seconds() / 60, 2) if total_duracao else 0
-    
     tempo_serializado = json.dumps(minutos)
 
-    return render(request, 'meu_app/dashboard.html', {'tempo_total_json': tempo_serializado})
+    metas = MetaEstudo.objects.filter(usuario=usuario)
     
+    for meta in metas:
+        if meta.tempo_meta > 0:
+            progresso = min(100, round((minutos / meta.tempo_meta) * 100))
+        else:
+            progresso = 0
+        meta.progresso = progresso
+
+    mensagens = []
+
+    if request.method == 'POST':
+        if 'nova_meta' in request.POST:
+            if MetaEstudo.objects.filter(usuario=usuario).count() >= 4:
+                mensagens.append("Você já atingiu o limite de 4 metas.")
+            else:
+                titulo = request.POST.get('titulo')
+                tempo_meta = int(request.POST.get('tempo_meta'))
+                MetaEstudo.objects.create(usuario=usuario, titulo=titulo, tempo_meta=tempo_meta)
+                return redirect('dashboard')
+
+        elif 'atualizar_meta' in request.POST:
+            meta_id = request.POST.get('meta_id')
+            novo_valor = int(request.POST.get('tempo_meta')) 
+            meta = get_object_or_404(MetaEstudo, id=meta_id, usuario=usuario)
+            meta.tempo_meta = novo_valor
+            meta.save()
+            return redirect('dashboard')
+
+        elif 'deletar_meta' in request.POST:
+            meta_id = request.POST.get('meta_id')
+            MetaEstudo.objects.filter(id=meta_id, usuario=usuario).delete()
+            return redirect('dashboard')
+            
+        if request.method == 'POST':
+            if 'zerar_tempo' in request.POST:
+                SessaoEstudo.objects.filter(usuario=usuario).delete()
+                MetaEstudo.objects.filter(usuario=usuario).update(tempo_realizado=0)
+                return redirect('dashboard')
+                
+        if 'zerar_tempo' in request.POST:
+            sessoes.filter(fim__isnull=False).delete()
+            return redirect('dashboard')
+
+    return render(request, 'meu_app/dashboard.html', {
+        'tempo_total_json': tempo_serializado,
+        'tempo_total_minutos': minutos,
+        'metas': metas,
+        'mensagens': mensagens,
+    })
+
 def tempo_estudo_ao_vivo(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
