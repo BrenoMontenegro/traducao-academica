@@ -25,6 +25,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title titulo-cartao">Tempo Total de Estudo (em minutos)</h5>
                         <p class="numero-destaque" id="tempo-total">{{ tempo_total_minutos }} min</p>
+                        <p class="text-white">Estudado hoje: <strong id="tempo-hoje">{{ tempo_hoje }} min</strong></p>
                         <form method="POST" class="mt-3">
                             {% csrf_token %}
                         <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalConfirmarReset">
@@ -42,12 +43,26 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title text-center">Gráfico de Tempo Estudado</h5>
-                        <canvas id="graficoEstudo" height="120"></canvas>
+                        <canvas id="graficoEstudo" height="120" data-labels='{{ dias|safe }}' data-valores='{{ minutos_por_dia|safe }}'></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <div class="row justify-content-center my-5">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Estudo nos últimos 7 dias</h5>
+                    <canvas id="graficoSemanal" height="120" height="120"
+                    data-labels='{{ dias|safe }}'
+                    data-valores='{{ minutos_por_dia|safe }}'></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     
     <h3 class="text-center my-4">Metas de Estudo</h3>
     

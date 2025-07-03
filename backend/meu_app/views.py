@@ -13,6 +13,10 @@ from django.db.models import Sum, F, ExpressionWrapper, DurationField
 import json
 from django.utils.timezone import now
 from django.http import JsonResponse
+from django.utils.timezone import timedelta
+from datetime import datetime, time
+from django.utils.timezone import make_aware
+from django.utils import timezone
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -156,8 +160,6 @@ def pagina_principal(request):
     usuario = get_object_or_404(Usuario, pk=usuario_id)
     return render(request, 'meu_app/home.html', {'usuario': usuario})
 
-
-
 def enviar_texto(request):
     if request.method == 'POST':
         conteudo = request.POST['conteudo']
@@ -229,23 +231,21 @@ def dashboard(request):
         duracao=ExpressionWrapper(F('fim') - F('inicio'), output_field=DurationField())
     )
     total_duracao = sessoes.aggregate(total=Sum('duracao'))['total']
-    minutos = round(total_duracao.total_seconds() / 60, 2) if total_duracao else 0
-    tempo_serializado = json.dumps(minutos)
+    minutos_total = round(total_duracao.total_seconds() / 60, 2) if total_duracao else 0
 
+    hoje = now().date()
+    sessoes_hoje = sessoes.filter(inicio__date=hoje)
+    total_hoje = sessoes_hoje.aggregate(total=Sum('duracao'))['total']
+    minutos_hoje = round(total_hoje.total_seconds() / 60, 2) if total_hoje else 0
+
+    tempo_serializado = json.dumps(minutos_total)
     metas = MetaEstudo.objects.filter(usuario=usuario)
     
-    for meta in metas:
-        if meta.tempo_meta > 0:
-            progresso = min(100, round((minutos / meta.tempo_meta) * 100))
-        else:
-            progresso = 0
-        meta.progresso = progresso
-
     mensagens = []
 
     if request.method == 'POST':
         if 'nova_meta' in request.POST:
-            if MetaEstudo.objects.filter(usuario=usuario).count() >= 4:
+            if metas.count() >= 4:
                 mensagens.append("Você já atingiu o limite de 4 metas.")
             else:
                 titulo = request.POST.get('titulo')
@@ -253,35 +253,44 @@ def dashboard(request):
                 MetaEstudo.objects.create(usuario=usuario, titulo=titulo, tempo_meta=tempo_meta)
                 return redirect('dashboard')
 
-        elif 'atualizar_meta' in request.POST:
+        if 'atualizar_meta' in request.POST:
             meta_id = request.POST.get('meta_id')
-            novo_valor = int(request.POST.get('tempo_meta')) 
+            novo_valor = int(request.POST.get('tempo_meta'))
             meta = get_object_or_404(MetaEstudo, id=meta_id, usuario=usuario)
             meta.tempo_meta = novo_valor
             meta.save()
             return redirect('dashboard')
 
-        elif 'deletar_meta' in request.POST:
+        if 'deletar_meta' in request.POST:
             meta_id = request.POST.get('meta_id')
             MetaEstudo.objects.filter(id=meta_id, usuario=usuario).delete()
             return redirect('dashboard')
-            
-        if request.method == 'POST':
-            if 'zerar_tempo' in request.POST:
-                SessaoEstudo.objects.filter(usuario=usuario).delete()
-                MetaEstudo.objects.filter(usuario=usuario).update(tempo_realizado=0)
-                return redirect('dashboard')
-                
+
         if 'zerar_tempo' in request.POST:
             sessoes.filter(fim__isnull=False).delete()
             return redirect('dashboard')
+            
+    dias = []
+    minutos_por_dia = []
+
+    for i in range(6, -1, -1):  
+        dia = hoje - timedelta(days=i)
+        sessoes_dia = sessoes.filter(inicio__date=dia)
+        total_dia = sessoes_dia.aggregate(total=Sum('duracao'))['total']
+        minutos = round(total_dia.total_seconds() / 60, 2) if total_dia else 0
+        dias.append(dia.strftime('%d/%m'))  
+        minutos_por_dia.append(minutos)
 
     return render(request, 'meu_app/dashboard.html', {
+        'tempo_total_minutos': minutos_total,
+        'tempo_hoje': minutos_hoje,
         'tempo_total_json': tempo_serializado,
-        'tempo_total_minutos': minutos,
+        'dias': json.dumps(dias),
+        'minutos_por_dia': json.dumps(minutos_por_dia),
         'metas': metas,
-        'mensagens': mensagens,
+        'mensagens': mensagens
     })
+
 
 def tempo_estudo_ao_vivo(request):
     usuario_id = request.session.get('usuario_id')
@@ -309,3 +318,32 @@ def tempo_estudo_ao_vivo(request):
     minutos = round(total_segundos / 60, 2)
 
     return JsonResponse({'tempo_total': minutos})
+    
+def obter_tempo_estudado_hoje(request):
+    usuario_id = request.session.get('usuario_id')
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+    hoje_inicio = timezone.make_aware(datetime.combine(timezone.now().date(), time.min))
+    agora = timezone.now()
+
+    sessoes_hoje = SessaoEstudo.objects.filter(
+        usuario=usuario,
+        inicio__gte=hoje_inicio,
+        fim__isnull=False
+    ).annotate(
+        duracao=ExpressionWrapper(F('fim') - F('inicio'), output_field=DurationField())
+    )
+
+    total_duracao = sessoes_hoje.aggregate(total=Sum('duracao'))['total']
+    minutos_hoje = round(total_duracao.total_seconds() / 60, 2) if total_duracao else 0
+
+    sessao_atual = SessaoEstudo.objects.filter(
+        usuario=usuario,
+        fim__isnull=True,
+        inicio__gte=hoje_inicio
+    ).order_by('-inicio').first()
+
+    if sessao_atual:
+        duracao_atual = agora - sessao_atual.inicio
+        minutos_hoje += round(duracao_atual.total_seconds() / 60, 2)
+
+    return JsonResponse({'tempo_estudado_hoje': f"{minutos_hoje:.2f}"})

@@ -41,6 +41,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 const minutos = data.tempo_total;
                 tempoSpan.textContent = minutos;
                 
+            fetch('/obter_tempo_estudado_hoje/')
+                .then(res => res.json())
+                .then(data => {
+                    const spanHoje = document.getElementById('tempo-hoje');
+                    if (spanHoje) {
+                        spanHoje.textContent = `${data.tempo_estudado_hoje} min`;
+                    }
+                });
+                
             document.querySelectorAll('.meta-progresso').forEach(barra => {
                 const tempoMeta = parseFloat(barra.dataset.meta);
                 if (tempoMeta > 0) {
@@ -59,13 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 grafico.update();
-                
-            const barras = document.querySelectorAll('.meta-progresso');
-            barras.forEach(barra => {
-                const tempoMeta = parseFloat(barra.dataset.meta);
-                const progresso = Math.min((minutos / tempoMeta) * 100, 100);
-                barra.style.width = progresso + '%';
-            });
             
             const spansFeito = document.querySelectorAll('.feito-meta');
             spansFeito.forEach(span => {
@@ -95,6 +97,33 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+    
+    const graficoSemanalCanvas = document.getElementById('graficoSemanal');
+    if (graficoSemanalCanvas) {
+    const ctxSemanal = graficoSemanalCanvas.getContext('2d');
+    const dias = JSON.parse(graficoSemanalCanvas.dataset.labels);
+    const minutos = JSON.parse(graficoSemanalCanvas.dataset.valores);
+
+    new Chart(ctxSemanal, {
+        type: 'bar',
+        data: {
+            labels: dias,
+            datasets: [{
+                label: 'Minutos por dia',
+                data: minutos,
+                backgroundColor: '#00FFAA',
+                borderRadius: 8
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
 });
 
 function confirmar() {

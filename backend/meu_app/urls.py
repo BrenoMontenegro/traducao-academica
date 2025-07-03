@@ -21,6 +21,7 @@ urlpatterns = [
     path('historico/', views.historico, name='historico'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('tempo-estudo-ao-vivo/', views.tempo_estudo_ao_vivo, name='tempo_estudo_ao_vivo'),
+    path('obter_tempo_estudado_hoje/', views.obter_tempo_estudado_hoje, name='obter_tempo_estudado_hoje'),
 ]
 
 if settings.DEBUG:
