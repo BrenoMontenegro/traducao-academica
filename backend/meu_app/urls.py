@@ -23,6 +23,9 @@ urlpatterns = [
     path('tempo-estudo-ao-vivo/', views.tempo_estudo_ao_vivo, name='tempo_estudo_ao_vivo'),
     path('obter_tempo_estudado_hoje/', views.obter_tempo_estudado_hoje, name='obter_tempo_estudado_hoje'),
     path('tarefas/', views.quadro_tarefas, name='tarefas'),
+    path('tarefas/<int:id>/deletar/', views.deletar_tarefa, name='deletar_tarefa'),
+    path('tarefas/<int:id>/mover/', views.mover_tarefa, name='mover_tarefa'),
+    path('atualizar-status/', views.atualizar_status, name='atualizar_status'),
 ]
 
 if settings.DEBUG:

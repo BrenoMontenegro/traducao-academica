@@ -368,3 +368,37 @@ def quadro_tarefas(request):
     }
 
     return render(request, 'meu_app/tarefas.html', contexto)
+
+def deletar_tarefa(request, id):
+    tarefa = get_object_or_404(Tarefa, pk=id)
+    if request.method == 'POST':
+        tarefa.delete()
+    return redirect('tarefas')
+    
+def mover_tarefa(request, id):
+    if request.method == 'POST':
+        tarefa = get_object_or_404(Tarefa, pk=id)
+        dados = json.loads(request.body)
+        novo_status = dados.get('status')
+
+        if novo_status in ['Começar', 'Em Andamento', 'Feito']:
+            tarefa.status = novo_status
+            tarefa.save()
+            return JsonResponse({'sucesso': True})
+    
+    return JsonResponse({'sucesso': False}, status=400)
+
+def atualizar_status(request):
+    if request.method == 'POST':
+        tarefa_id = request.POST.get('id')
+        novo_status = request.POST.get('status')
+
+        try:
+            tarefa = Tarefa.objects.get(id=tarefa_id)
+            tarefa.status = novo_status
+            tarefa.save()
+            return JsonResponse({'success': True})
+        except Tarefa.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Tarefa não encontrada'})
+    
+    return JsonResponse({'success': False, 'error': 'Método não permitido'})
