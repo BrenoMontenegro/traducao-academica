@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #6a1bb1 0%, #7d24c0 50%, #9341aa 100%);
+}
+
+body {
+    background: linear-gradient(135deg, #10071d 0%, #1f1129 25%, #2d1d3d 50%, #38204d 75%, #43305a 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e8e3f0;
+    position: relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(88, 0, 146, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(55, 0, 100, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(90, 0, 120, 0.04) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.header-site {
+    position: static;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85), rgba(51, 65, 85, 0.85));
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    border-radius: 0 0 24px 24px;
+    transition: all 0.3s ease;
+}
+
+.header-site {
+    all: unset;
+    display: block;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.85), rgba(51, 65, 85, 0.85));
+    padding: 1rem 2rem;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+.header-site .navbar {
+    background: transparent !important;
+    padding: 0;
+}
+
+.header-site .navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.5px;
+    text-shadow: none;
+    transition: none;
+}
+
+.header-site .navbar-brand:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}
+
+h2 {
+    color: #e8e3f0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px rgba(88, 0, 146, 0.5);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #6a1bb1, transparent);
+    border-radius: 2px;
+}
+
+form {
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+label {
+    color: #c8b5d8;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    background: rgba(255, 255, 255, 0.035) !important;
+    border: 1px solid rgba(88, 0, 146, 0.25) !important;
+    border-radius: 12px !important;
+    color: #e8e3f0 !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+    outline: none !important;
+    border-color: #7a1fd1 !important;
+    box-shadow: 
+        0 0 0 0.2rem rgba(88, 0, 146, 0.2) !important,
+        0 0 15px rgba(88, 0, 146, 0.25) !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a08fb0 !important;
+}
+
+.btn-primary,
+.btn-adicionar {
+    background: linear-gradient(135deg, #6a1bb1 0%, #7d24c0 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 0.75rem 1.5rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 
+        0 4px 15px rgba(88, 0, 146, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.btn-primary:hover,
+.btn-adicionar:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 
+        0 6px 20px rgba(88, 0, 146, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+    background: linear-gradient(135deg, #7d24c0 0%, #6a1bb1 100%) !important;
+}
+
+.btn-primary:active,
+.btn-adicionar:active {
+    transform: translateY(0) !important;
+}
+
+.coluna-kanban {
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    min-height: 500px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.coluna-kanban::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #6a1bb1, #7d24c0, #9341aa);
+    border-radius: 20px 20px 0 0;
+}
+
+.coluna-kanban:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: rgba(88, 0, 146, 0.25);
+}
+
+.titulo-coluna {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e8e3f0;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, rgba(88, 0, 146, 0.15), rgba(125, 36, 192, 0.15));
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.titulo-coluna::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6a1bb1, transparent);
+    border-radius: 1px;
+}
+
+.cartao-kanban {
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    cursor: move;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.cartao-kanban::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6a1bb1, #7d24c0);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cartao-kanban:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: rgba(88, 0, 146, 0.3);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.cartao-kanban:hover::before {
+    opacity: 1;
+}
+
+.cartao-kanban strong {
+    color: #e8e3f0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.cartao-kanban {
+    color: #c8b5d8;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.cartao-kanban.arrastando {
+    opacity: 0.7;
+    transform: rotate(5deg) scale(1.05);
+    box-shadow: 0 10px 30px rgba(88, 0, 146, 0.3);
+}
+
+.coluna-kanban.drop-zone {
+    background: rgba(88, 0, 146, 0.08);
+    border-color: rgba(88, 0, 146, 0.4);
+    transform: scale(1.02);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(88, 0, 146, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .coluna-kanban {
+        margin-bottom: 1.5rem;
+        min-height: 300px;
+    }
+    
+    form {
+        padding: 1.5rem;
+    }
+}

@@ -8,7 +8,7 @@ from django.contrib import messages
 from .tasks import enviar_email_welcome
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
-from .models import SessaoEstudo, MetaEstudo
+from .models import SessaoEstudo, MetaEstudo, Tarefa
 from django.db.models import Sum, F, ExpressionWrapper, DurationField
 import json
 from django.utils.timezone import now
@@ -17,6 +17,8 @@ from django.utils.timezone import timedelta
 from datetime import datetime, time
 from django.utils.timezone import make_aware
 from django.utils import timezone
+from .models import Tarefa
+from .forms import TarefaForm
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -347,3 +349,22 @@ def obter_tempo_estudado_hoje(request):
         minutos_hoje += round(duracao_atual.total_seconds() / 60, 2)
 
     return JsonResponse({'tempo_estudado_hoje': f"{minutos_hoje:.2f}"})
+    
+    
+def quadro_tarefas(request):
+    if request.method == 'POST':
+        form = TarefaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tarefas')
+    else:
+        form = TarefaForm()
+
+    contexto = {
+        'form': form,
+        'comecar': Tarefa.objects.filter(status='COMECAR'),
+        'andamento': Tarefa.objects.filter(status='ANDAMENTO'),
+        'feito': Tarefa.objects.filter(status='FEITO'),
+    }
+
+    return render(request, 'meu_app/tarefas.html', contexto)

@@ -42,3 +42,18 @@ class MetaEstudo(models.Model):
         if self.tempo_meta > 0:
             return int((self.tempo_realizado / self.tempo_meta) * 100)
         return 0
+        
+class Tarefa(models.Model):
+    STATUS_CHOICES = [
+        ('COMECAR', 'Começar'),
+        ('ANDAMENTO', 'Em andamento'),
+        ('FEITO', 'Feito'),
+    ]
+
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='COMECAR')
+
+    def __str__(self):
+        return self.titulo
+        

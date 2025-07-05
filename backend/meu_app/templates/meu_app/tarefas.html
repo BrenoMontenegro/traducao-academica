@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Quadro de Tarefas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'meu_app/estilo-tarefas.css' %}">
+</head>
+<body class="container mt-5">
+    
+    <header class="header-site d-flex justify-content-between align-items-center px-4 py-3 mb-4">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">MINDORAHUB</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="row text-center mb-4">
+        <h2>Quadro de Tarefas</h2>
+    </div>
+    
+    <form method="post" class="mb-4">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4 mb-2">{{ form.titulo.label_tag }}{{ form.titulo }}</div>
+        <div class="col-md-4 mb-2">{{ form.descricao.label_tag }}{{ form.descricao }}</div>
+        <div class="col-md-3 mb-2">{{ form.status.label_tag }}{{ form.status }}</div>
+        <div class="col-md-2 mb-2">
+            <button type="submit" class="btn-adicionar" style="color:white;">Adicionar</button>
+        </div>
+    </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="coluna-kanban" id="coluna-comecar">
+                <div class="titulo-coluna">Começar</div>
+                {% for tarefa in comecar %}
+                    <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <strong>{{ tarefa.titulo }}</strong><br>
+                        {{ tarefa.descricao }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="coluna-kanban" id="coluna-andamento">
+                <div class="titulo-coluna">Em Andamento</div>
+                {% for tarefa in andamento %}
+                    <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <strong>{{ tarefa.titulo }}</strong><br>
+                        {{ tarefa.descricao }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="coluna-kanban" id="coluna-feito">
+                <div class="titulo-coluna">Feito</div>
+                {% for tarefa in feito %}
+                    <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <strong>{{ tarefa.titulo }}</strong><br>
+                        {{ tarefa.descricao }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'meu_app/tarefas.js' %}"></script>
+    
+</body>
+</html>

@@ -30,9 +30,9 @@
       <div class="nav-container">
         <nav>
           <ul class="nav-menu">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-alt"></i> Resumos</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-history"></i> Histórico</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li class="nav-item"><a href="{% url 'index' %}" class="nav-link"><i class="fas fa-file-alt"></i> Resumos</a></li>
+            <li class="nav-item"><a href="{% url 'historico' %}" class="nav-link"><i class="fas fa-history"></i> Histórico</a></li>
+            <li class="nav-item"><a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-chart-line"></i> Analytics</a></li>
           </ul>
         </nav>
       </div>
@@ -82,12 +82,15 @@
           <p style="color: var(--text-secondary); font-size: 0.9rem;">Acompanhe seu progresso e performance de estudos</p>
         </div>
       </a>
-        
+      
+      <a href="{% url 'tarefas' %}" style="text-decoration: none;">  
         <div style="padding: 1.5rem; border: 1px solid var(--glass-border); border-radius: 16px; background: var(--glass-bg);">
           <i class="fas fa-tasks" style="font-size: 2rem; color: var(--accent-pink); margin-bottom: 1rem;"></i>
           <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">Atividades</h3>
           <p style="color: var(--text-secondary); font-size: 0.9rem;">Acesse suas atividades pendentes e veja as concluídas</p>
         </div>
+      </a>
+      
       </div>
     </div>
   </main>
