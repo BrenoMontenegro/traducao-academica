@@ -26,6 +26,7 @@ urlpatterns = [
     path('tarefas/<int:id>/deletar/', views.deletar_tarefa, name='deletar_tarefa'),
     path('tarefas/<int:id>/mover/', views.mover_tarefa, name='mover_tarefa'),
     path('atualizar-status/', views.atualizar_status, name='atualizar_status'),
+    path('deletar-tarefa/<int:id>/', views.deletar_tarefa, name='deletar_tarefa'),
 ]
 
 if settings.DEBUG:

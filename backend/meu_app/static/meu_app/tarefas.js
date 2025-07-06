@@ -98,3 +98,36 @@ function getCSRFToken() {
     }
     return '';
 }
+
+document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', function (event) {
+        event.stopPropagation(); 
+        const card = button.closest('.cartao-kanban');
+        card.remove(); 
+    });
+});
+
+document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', function (event) {
+        event.stopPropagation();
+        const tarefaId = button.getAttribute('data-id');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/deletar-tarefa/${tarefaId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                const card = button.closest('.cartao-kanban');
+                card.remove();
+            } else {
+                alert('Erro ao deletar a tarefa: ' + data.mensagem);
+            }
+        });
+    });
+});

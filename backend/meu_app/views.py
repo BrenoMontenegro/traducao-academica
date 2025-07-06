@@ -402,3 +402,13 @@ def atualizar_status(request):
             return JsonResponse({'success': False, 'error': 'Tarefa não encontrada'})
     
     return JsonResponse({'success': False, 'error': 'Método não permitido'})
+    
+def deletar_tarefa(request, id):
+    if request.method == 'POST':
+        try:
+            tarefa = Tarefa.objects.get(id=id)
+            tarefa.delete()
+            return JsonResponse({'status': 'ok'})
+        except Tarefa.DoesNotExist:
+            return JsonResponse({'status': 'erro', 'mensagem': 'Tarefa não encontrada'})
+    return JsonResponse({'status': 'erro', 'mensagem': 'Método inválido'})

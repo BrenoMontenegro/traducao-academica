@@ -39,13 +39,9 @@
                 <div class="titulo-coluna">Começar</div>
                 {% for tarefa in comecar %}
                     <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
-                        
-                        <form method="post" action="{% url 'deletar_tarefa' tarefa.id %}" onsubmit="return confirm('Tem certeza que deseja deletar esta tarefa?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-deletar">🗑️</button>
-                        </form>
                     </div>
                 {% endfor %}
             </div>
@@ -56,13 +52,9 @@
                 <div class="titulo-coluna">Em Andamento</div>
                 {% for tarefa in andamento %}
                     <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
-                        
-                        <form method="post" action="{% url 'deletar_tarefa' tarefa.id %}" onsubmit="return confirm('Tem certeza que deseja deletar esta tarefa?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-deletar">🗑️</button>
-                        </form>
                     </div>
                 {% endfor %}
             </div>
@@ -73,19 +65,15 @@
                 <div class="titulo-coluna">Feito</div>
                 {% for tarefa in feito %}
                     <div class="cartao-kanban" draggable="true" data-id="{{ tarefa.id }}">
+                        <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
-                        
-                        <form method="post" action="{% url 'deletar_tarefa' tarefa.id %}" onsubmit="return confirm('Tem certeza que deseja deletar esta tarefa?');">
-                            {% csrf_token %}
-                            <button type="submit" class="btn-deletar">🗑️</button>
-                        </form>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-
+    
     <script src="{% static 'meu_app/tarefas.js' %}"></script>
     
 </body>

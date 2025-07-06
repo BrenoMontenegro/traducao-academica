@@ -188,12 +188,16 @@ textarea::placeholder {
     backdrop-filter: blur(15px);
     border: 1px solid var(--glass-border);
     border-radius: 15px;
+    padding: 10px 30px 10px 10px; 
     padding: 1.25rem;
+    padding-bottom: 30px;
     margin-bottom: 1rem;
     cursor: move;
     transition: all 0.3s ease;
     color: var(--text-muted);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .cartao-kanban:hover {
@@ -216,11 +220,18 @@ textarea::placeholder {
     transform: rotate(5deg) scale(1.05);
     box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
 }
-
 .coluna-kanban.drop-zone {
     background: rgba(124, 58, 237, 0.1);
     border-color: rgba(124, 58, 237, 0.4);
     transform: scale(1.02);
+}
+
+.btn-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0.2rem;
+    font-size: 0.6rem;
 }
 
 input[type="text"],
@@ -241,20 +252,6 @@ select {
 
 textarea {
     height: 45px; 
-}
-
-.btn-deletar {
-    background: transparent;
-    border: none;
-    color: #ff6b6b;
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
-    float: right;
-}
-
-.btn-deletar:hover {
-    color: #ff3b3b;
 }
 
 @media (max-width: 768px) {
