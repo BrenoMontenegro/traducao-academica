@@ -1,0 +1,112 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #6a1bb1 0%, #7d24c0 50%, #9341aa 100%);
+    --bg-dark: #1c1f2e;
+    --card-bg: #2a2d3e;
+    --text-light: #f1f1f1;
+    --primary: #7d24c0;
+    --secondary: #6c757d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 50px;
+}
+
+html, body {
+    height: 100%;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.formulario-de-registro {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.formulario-de-registro h2 {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+form.card {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+form p {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3a3f5c;
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary);
+    background-color: #464b6b;
+}
+
+button.btn {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    transition: 0.2s ease;
+    margin-bottom: 10px;
+}
+
+button.btn-primary {
+    background-color: var(--primary);
+}
+
+button.btn-secondary {
+    background-color: var(--secondary);
+}
+
+button.btn:hover {
+    transform: scale(1.02);
+    opacity: 0.95;
+}
