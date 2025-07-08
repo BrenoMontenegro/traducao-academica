@@ -53,6 +53,7 @@ class Tarefa(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='COMECAR')
+    data = models.DateField(null=True, blank=True) 
 
     def __str__(self):
         return self.titulo

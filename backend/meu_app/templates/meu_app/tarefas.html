@@ -27,6 +27,7 @@
         <div class="col-md-4 mb-2">{{ form.titulo.label_tag }}{{ form.titulo }}</div>
         <div class="col-md-4 mb-2">{{ form.descricao.label_tag }}{{ form.descricao }}</div>
         <div class="col-md-4 mb-2">{{ form.status.label_tag }}{{ form.status }}</div>
+        <div class="col-md-2 mb-2">{{ form.data.label_tag }}{{ form.data }}</div>
         <div class="col-md-2 mb-2">
             <button type="submit" class="btn-adicionar" style="color:white;">Adicionar</button>
         </div>
@@ -42,6 +43,7 @@
                         <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
+                        <small>{{ tarefa.data|date:"d/m/Y" }}</small>
                     </div>
                 {% endfor %}
             </div>
@@ -55,6 +57,7 @@
                         <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
+                        <small>{{ tarefa.data|date:"d/m/Y" }}</small>
                     </div>
                 {% endfor %}
             </div>
@@ -68,6 +71,7 @@
                         <button type="button" class="btn-close btn-close-white btn-delete" aria-label="Excluir" data-id="{{ tarefa.id }}"></button>
                         <strong>{{ tarefa.titulo }}</strong><br>
                         {{ tarefa.descricao }}
+                        <small>{{ tarefa.data|date:"d/m/Y" }}</small>
                     </div>
                 {% endfor %}
             </div>
